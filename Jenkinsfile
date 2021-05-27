@@ -28,5 +28,13 @@ node{
 		sh "${mvnHome}/bin/mvn sonar:sonar -Dsonar.projectKey=welcometoskillrary -Dsonar.host.url=http://13.233.72.168:9000 -Dsonar.login=b993f2e2516629fdb0997287eb8e93f15e915a26"
 		}	
  
-	}	
+	}
+	stage("Quality Gate Check Status"){
+         	 timeout(time: 1, unit: 'HOURS') {
+             		 def qg = waitForQualityGate()
+             		 if (qg.status != 'OK') {
+                 		 error "Pipeline aborted due to quality gate failure: ${qg.status}"	
+			 }
+		 }
+	}
 }
