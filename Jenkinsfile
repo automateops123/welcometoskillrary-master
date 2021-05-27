@@ -26,12 +26,5 @@ node{
 		withSonarQubeEnv('sonarqube'){
 		sh "${mvnHome}/bin/mvn sonar:sonar -Dsonar.projectKey=welcometoskillrary -Dsonar.host.url=http://13.233.72.168:9000 -Dsonar.login=b56fef816c2ed5d97e4d9ae26c94fd9cb57cdc22"
 	}	
-        stage("Quality Gate Check Status"){
-         	 timeout(time: 1, unit: 'HOURS') {
-             		 def qg = waitForQualityGate()
-             		 if (qg.status != 'OK') {
-                 		 error "Pipeline aborted due to quality gate failure: ${qg.status}"	
-			 }
-		 }
-	}
+        
 }
