@@ -23,7 +23,7 @@ node{
 	
 	stage('SonarQube Analysis'){ 
 		def mvnHome = tool name: 'maven', type: 'maven'
-		withSonarQubeEnv('sonarquber'){
+		withSonarQubeEnv('sonarqube'){
     		// some block
 		sh "${mvnHome}/bin/mvn sonar:sonar -Dsonar.projectKey=welcometoskillrary -Dsonar.host.url=http://13.233.72.168:9000 -Dsonar.login=b993f2e2516629fdb0997287eb8e93f15e915a26"
 		}	
