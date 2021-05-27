@@ -37,4 +37,8 @@ node{
               }
           }
       }
+	
+	stage("Deploy artifact to artifactory"){
+	no public field ‘deployer’ (or getter method) found in class org.jfrog.hudson.pipeline.scripted.steps.DeployStep
+	}
 }
