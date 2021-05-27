@@ -38,7 +38,17 @@ node{
           }
       }
 	
-	stage("Deploy artifact to artifactory"){
-		no public field ‘deployer’ (or getter method) found in class org.jfrog.hudson.pipeline.scripted.steps.DeployStep
+	stage('Jfrog Artifactory Backup'){
+	
+		def server = Artifactory.server "http://13.233.27.38:8082"
+		// Create an Artifactory Maven instance.
+		def rtMaven = Artifactory.newMavenBuild()
+		def buildInfo
+		// Tool name from Jenkins configuration
+       		rtMaven.tool = "maven"
+        	// Set Artifactory repositories for dependencies resolution and artifacts deployment.
+        	rtMaven.deployer releaseRepo:'skillrarywelcome-libs-release-local', snapshotRepo:'skillrarywelcome-libs-snapshot-local', server: server
+        	rtMaven.resolver releaseRepo:'skillrarywelcome-libs-release-local', snapshotRepo:'skillrarywelcome-libs-snapshot-local', server: server
+
 	}
 }
