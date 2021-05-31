@@ -40,7 +40,7 @@ node{
 	
 	stage('Jfrog Artifactory Backup'){
 	
-		def server = Artifactory.server "http://13.233.27.38:8082"
+		def server = Artifactory.server "sonarqube"
 		// Create an Artifactory Maven instance.
 		def rtMaven = Artifactory.newMavenBuild()
 		def buildInfo
