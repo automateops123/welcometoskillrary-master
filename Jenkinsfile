@@ -51,4 +51,8 @@ node{
         	rtMaven.resolver releaseRepo:'skillrarywelcome-libs-release-local', snapshotRepo:'skillrarywelcome-libs-snapshot-local', server: server
 
 	}
+	stage('Deploy to Tomcat Server'){
+
+		deploy adapters: [tomcat8(credentialsId: 'Tomcat-Jenkins', path: '', url: 'http://13.229.97.127:9090')], contextPath: 'skillrary01', war: '**/*.war'
+	}		
 }
