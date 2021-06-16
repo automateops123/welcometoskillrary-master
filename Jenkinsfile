@@ -46,7 +46,7 @@ node{
                 sourcePattern: '**/coverage/**',
                 inclusionPattern: '**/*.class'
 		)
-    }
+   	 }
 	
 	// stage('Jfrog Artifactory Backup'){
 	
@@ -57,6 +57,55 @@ node{
         //	rtMaven.deployer releaseRepo:'skillrarywelcome-libs-release-local', snapshotRepo:'skillrarywelcome-libs-snapshot-local', server: server
         //	rtMaven.resolver releaseRepo:'skillrarywelcome-libs-release-local', snapshotRepo:'skillrarywelcome-libs-snapshot-local', server: server
 	//}
+	
+	
+	  stage ('Artifactory configuration') {
+           	 steps {
+               	 rtServer (
+                  	  id: "jfrogskillrary",
+                  	  url: "http://13.213.52.44:8082/artifactory/",
+                  	  credentialsId: "jfrogskillrary"
+              	  )
+
+               	 rtMavenDeployer (
+                  	  id: "MAVEN_DEPLOYER",
+                  	  serverId: "jfrogskillrary",
+                  	  releaseRepo: "pipeline-upload-job-generic-local",
+                  	  snapshotRepo: "pipeline-upload-job-generic-local"
+             	   )
+
+             	   rtMavenResolver (
+             	       id: "MAVEN_RESOLVER",
+             	       serverId: "jfrogskillrary",
+             	       releaseRepo: "pipeline-upload-job-generic-local",
+             	       snapshotRepo: "pipeline-upload-job-generic-local"
+            	    )
+         	   }
+  	  }
+
+   	 stage ('Deploy Artifacts') {
+           	 steps {
+              	  rtMavenRun (
+                  	  tool: "Maven", // Tool name from Jenkins configuration
+                  	  pom: 'welcometoskillrary-master/pom.xml',
+                  	  goals: 'clean install',
+                  	  deployerId: "MAVEN_DEPLOYER",
+                 	   resolverId: "MAVEN_RESOLVER"
+               	 )
+         	}
+  	  }
+
+  	  stage ('Publish build info') {
+           	 steps {
+               	 rtPublishBuildInfo (
+                 	   serverId: "jfrogskillrary"
+            	 )
+        	}
+  	  }
+	 }
+	
+	
+	
 	stage('Deploy approval'){
 		input "Deploy to prod?"
 	}
