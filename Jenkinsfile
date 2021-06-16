@@ -1,9 +1,9 @@
 pipeline {
 	agent{label "Maven Project"}
 	
-	}
 	
-		stages {
+	
+	stages {
 		stage (Clean Workspace) {
 			steps {
 				def mvnHome = tool name: 'maven', type: 'maven'
