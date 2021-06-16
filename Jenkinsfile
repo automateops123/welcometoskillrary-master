@@ -78,7 +78,7 @@ node{
 		deploy adapters: [tomcat8(credentialsId: 'Tomcat-Jenkins', path: '', url: 'http://54.254.75.108:9090')], contextPath: 'skillrary01', war: '**/*.war'
 	}
 	    
-	//stage("slack channel"){
-       // 	slackSend channel: '#automateops123', color: 'Blue', message: 'Job is Successfully Deployed to QA server', teamDomain: 'automateopsworkspace', tokenCredentialId: 'slackintjenk'   
-    //}
+	stage("slack channel"){
+        	slackSend channel: '#automateops123', color: 'Blue', message: 'Job is Successfully Deployed to QA server', teamDomain: 'automateopsworkspace', tokenCredentialId: 'slackintjenk'   
+    	}
 }
