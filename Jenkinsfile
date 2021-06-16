@@ -65,7 +65,7 @@ node{
 			def buildInfo
        			rtMaven.tool = "maven"
         		rtMaven.deployer releaseRepo:'pipeline-upload-job-generic-local', snapshotRepo:'pipeline-upload-job-generic-local', server: server
-	
+			rtMaven.resolver releaseRepo:'pipeline-upload-job-generic-local', snapshotRepo:'pipeline-upload-job-generic-local', server: server
 		}
 	}
 	
