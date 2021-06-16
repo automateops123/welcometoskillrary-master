@@ -16,18 +16,19 @@ node{
 	
 	stage('SonarQube Analysis'){
 		def mvnHome = tool name: 'maven', type: 'maven'
-		withSonarQubeEnv('sonarqube'){
-		sh "${mvnHome}/bin/mvn sonar:sonar -Dsonar.projectKey=maven-project2 -Dsonar.host.url=http://54.179.64.45:9000 -Dsonar.login=7f70d9ee734e3be25fd8719d33dcc206df16060"
+		withSonarQubeEnv('sonarqube1'){
+		sh "${mvnHome}/bin/mvn sonar:sonar -Dsonar.projectKey=jenkins-integration -Dsonar.host.url=http://54.179.64.45:9000 -Dsonar.login=e15564d90c10691e253a9441e48bbf31ba0e0343"
 		}
-	}	
+	}
+	
 	stage('Quality Gate'){
-        timeout(time: 1, unit: 'HOURS') {
-            def qg = waitForQualityGate()
-            if (qg.status != 'OK') {
-            error "Pipeline aborted due to quality gate failure: ${qg.status}"
-            }
-        }
-    }
+        	timeout(time: 1, unit: 'HOURS') {
+            		def qg = waitForQualityGate()
+            		if (qg.status != 'OK') {
+           		 error "Pipeline aborted due to quality gate failure: ${qg.status}"
+            		}
+        	}
+    	}
 	
   	stage('Packaging the code'){
 		def mvnHome = tool name: 'maven', type: 'maven'
@@ -63,8 +64,8 @@ node{
 	stage('Deploy to QAServer'){
 		deploy adapters: [tomcat8(credentialsId: 'Tomcat-Jenkins', path: '', url: 'http://54.254.75.108:9090')], contextPath: 'skillrary01', war: '**/*.war'
 	}
-	    stage("slack channel"){
-        slackSend channel: '#automateops123', color: 'Blue', message: 'Job is Successfully Deployed QA server', teamDomain: 'automateopsworkspace', tokenCredentialId: 'slackintjenk'
-        
+	    
+	stage("slack channel"){
+        	slackSend channel: '#automateops123', color: 'Blue', message: 'Job is Successfully Deployed QA server', teamDomain: 'automateopsworkspace', tokenCredentialId: 'slackintjenk'   
     }
 }
