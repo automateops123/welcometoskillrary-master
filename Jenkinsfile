@@ -58,6 +58,16 @@ node{
         //	rtMaven.resolver releaseRepo:'skillrarywelcome-libs-release-local', snapshotRepo:'skillrarywelcome-libs-snapshot-local', server: server
 	//}
 	
+	stage ('upload the artifactory'){
+		withCredentials([usernameColonPassword(credentialsId: 'JfrogDeployPipeline', variable: 'jfrogskill')]) {
+    			def server = Artifactory.server "jfrog"
+			def rtMaven = Artifactory.newMavenBuild()
+			def buildInfo
+       			rtMaven.tool = "maven"
+        		rtMaven.deployer releaseRepo:'pipeline-upload-job-generic-local', snapshotRepo:'pipeline-upload-job-generic-local', server: server
+	
+		}
+	}
 	
 	  
 	stage('Deploy approval'){
