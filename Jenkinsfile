@@ -59,56 +59,10 @@ node{
 	//}
 	
 	
-	  stage ('Artifactory configuration') {
-           	 steps {
-               	 rtServer (
-                  	  id: "jfrogskillrary",
-                  	  url: "http://13.213.52.44:8082/artifactory/",
-                  	  credentialsId: "jfrogskillrary"
-              	  )
-
-               	 rtMavenDeployer (
-                  	  id: "MAVEN_DEPLOYER",
-                  	  serverId: "jfrogskillrary",
-                  	  releaseRepo: "pipeline-upload-job-generic-local",
-                  	  snapshotRepo: "pipeline-upload-job-generic-local"
-             	   )
-
-             	   rtMavenResolver (
-             	       id: "MAVEN_RESOLVER",
-             	       serverId: "jfrogskillrary",
-             	       releaseRepo: "pipeline-upload-job-generic-local",
-             	       snapshotRepo: "pipeline-upload-job-generic-local"
-            	    )
-         	   }
-  	  }
-
-   	 stage ('Deploy Artifacts') {
-           	 steps {
-              	  rtMavenRun (
-                  	  tool: "Maven", // Tool name from Jenkins configuration
-                  	  pom: 'welcometoskillrary-master/pom.xml',
-                  	  goals: 'clean install',
-                  	  deployerId: "MAVEN_DEPLOYER",
-                 	   resolverId: "MAVEN_RESOLVER"
-               	 )
-         	}
-  	  }
-
-  	  stage ('Publish build info') {
-           	 steps {
-               	 rtPublishBuildInfo (
-                 	   serverId: "jfrogskillrary"
-            	 )
-        	}
-  	  }
-	 
-	
-	
-	
-	//stage('Deploy approval'){
-	//	input "Deploy to prod?"
-	//}
+	  
+	stage('Deploy approval'){
+		input "Deploy to prod?"
+	}
 	
 	stage('Deploy to QAServer'){
 		deploy adapters: [tomcat8(credentialsId: 'Tomcat-Jenkins', path: '', url: 'http://54.254.75.108:9090')], contextPath: 'skillrary01', war: '**/*.war'
