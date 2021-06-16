@@ -1,8 +1,7 @@
 node{
 
-	stage('Package the code'){
-		def mvnHome = tool name: 'maven', type: 'maven'
-		sh "${mvnHome}/bin/mvn clean"	
+	stage('clean the workspace'){
+		sh "$/usr/share/apache-maven/bin/mvn clean"	
 	}	
 	
 	stage('SCM Checkout'){
@@ -10,13 +9,12 @@ node{
 	}
 	
 	stage('compile the code'){
-		def mvnHome = tool name: 'maven', type: 'maven'
-		sh "${mvnHome}/bin/mvn clean compile"
+		sh "$/usr/share/apache-maven/bin/mvn clean compile"
 	}
 	
 	stage('SonarQube Analysis'){
 		withSonarQubeEnv(credentialsId: 'jenkins-integration', installationName: 'sonarqube') {
-			sh "${mvnHome}/bin/mvn sonar:sonar"
+			sh "/usr/share/apache-maven/bin/mvn sonar:sonar"
 		}
 	}	
 	stage('Quality Gate'){
@@ -29,8 +27,7 @@ node{
     }
 	
   	stage('Packaging the code'){
-		def mvnHome = tool name: 'maven', type: 'maven'
-		sh "${mvnHome}/bin/mvn clean package"
+		sh "$/usr/share/apache-maven/bin/mvn clean package"
 	}
   	
 	stage('Junit Testing Reports'){
