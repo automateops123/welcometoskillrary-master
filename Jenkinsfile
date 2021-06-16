@@ -6,6 +6,7 @@ pipeline {
 	stages {
 		stage ( 'Clean Workspace' ) {
 			steps {
+				echo "Cleaning the Workspace"
 				sh "${mvnHome}/bin/mvn clean "
 			}
 		}
@@ -13,6 +14,7 @@ pipeline {
 	stages {
 		stage ( 'SCM Checkout' ) {
 			steps {
+				echo "Cloning the Repository"
 				git credentialsId: 'praveen-github', url: 'https://github.com/automateops123/welcometoskillrary-master.git'
 			}
 		}
