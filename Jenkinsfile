@@ -22,7 +22,12 @@ node{
 	}
 	
 	stage("Quality Gate"){
-		no public field ‘webhookSecretId’ (or getter method) found in class org.sonarsource.scanner.jenkins.pipeline.WaitForQualityGateStep
+          	timeout(time: 1, unit: 'HOURS') {
+              		def qg = waitForQualityGate()
+              		if (qg.status != 'OK') {
+                  	error "Pipeline aborted due to quality gate failure: ${qg.status}"
+              }
+          }
       }  
 	
   	stage('Packaging the code'){
