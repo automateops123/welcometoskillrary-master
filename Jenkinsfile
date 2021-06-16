@@ -48,15 +48,15 @@ node{
 		)
     }
 	
-	stage('Jfrog Artifactory Backup'){
+	// stage('Jfrog Artifactory Backup'){
 	
-		def server = Artifactory.server "sonarqube"
-		def rtMaven = Artifactory.newMavenBuild()
-		def buildInfo
-       		rtMaven.tool = "maven"
-        	rtMaven.deployer releaseRepo:'skillrarywelcome-libs-release-local', snapshotRepo:'skillrarywelcome-libs-snapshot-local', server: server
-        	rtMaven.resolver releaseRepo:'skillrarywelcome-libs-release-local', snapshotRepo:'skillrarywelcome-libs-snapshot-local', server: server
-	}
+	//	def server = Artifactory.server "sonarqube"
+	//	def rtMaven = Artifactory.newMavenBuild()
+	//	def buildInfo
+       	//	rtMaven.tool = "maven"
+        //	rtMaven.deployer releaseRepo:'skillrarywelcome-libs-release-local', snapshotRepo:'skillrarywelcome-libs-snapshot-local', server: server
+        //	rtMaven.resolver releaseRepo:'skillrarywelcome-libs-release-local', snapshotRepo:'skillrarywelcome-libs-snapshot-local', server: server
+	//}
 	stage('Deploy approval'){
 		input "Deploy to prod?"
 	}
