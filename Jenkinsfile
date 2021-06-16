@@ -1,15 +1,13 @@
 pipeline {
-	agent{label "welcometoskillrary"}
-	tool {
-		maven 'maven'
+	agent{label "Maven Project"}
+	
 	}
 	
 		stages {
 		stage (Clean Workspace) {
 			steps {
-				dir('java-source'){
-            				sh "mvn package"
-				}
+				def mvnHome = tool name: 'maven', type: 'maven'
+				sh "${mvnHome}/bin/mvn clean "
 			}
 		}
 	}
