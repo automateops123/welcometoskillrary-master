@@ -9,26 +9,26 @@ node{
 		git 'https://github.com/automateops123/welcometoskillrary-master.git'
 	}
 	
-	stage('compile the code'){
+	stage('Compile the code'){
 		def mvnHome = tool name: 'maven', type: 'maven'
 		sh "${mvnHome}/bin/mvn clean compile"
 	}
 	
-	stage('SonarQube Analysis'){
+	stage('Source Code Analysis'){
 		def mvnHome = tool name: 'maven', type: 'maven'
 		withSonarQubeEnv('sonarqube1'){
 		sh "${mvnHome}/bin/mvn sonar:sonar -Dsonar.projectKey=jenkins-integration -Dsonar.host.url=http://54.179.64.45:9000 -Dsonar.login=e15564d90c10691e253a9441e48bbf31ba0e0343"
 		}
 	}
 	
-	stage('Quality Gate'){
-        	timeout(time: 1, unit: 'HOURS') {
-            		def qg = waitForQualityGate()
-            		if (qg.status != 'OK') {
-           		 error "Pipeline aborted due to quality gate failure: ${qg.status}"
-            		}
-        	}
-    	}
+	stage("Quality Gate"){
+         	 timeout(time: 1, unit: 'HOURS') {
+             	 def qg = waitForQualityGate()
+             	 if (qg.status != 'OK') {
+                  	error "Pipeline aborted due to quality gate failure: ${qg.status}"
+              }
+          }
+      }  
 	
   	stage('Packaging the code'){
 		def mvnHome = tool name: 'maven', type: 'maven'
