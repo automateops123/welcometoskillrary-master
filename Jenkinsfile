@@ -102,13 +102,13 @@ node{
             	 )
         	}
   	  }
-	 }
+	 
 	
 	
 	
-	stage('Deploy approval'){
-		input "Deploy to prod?"
-	}
+	//stage('Deploy approval'){
+	//	input "Deploy to prod?"
+	//}
 	
 	stage('Deploy to QAServer'){
 		deploy adapters: [tomcat8(credentialsId: 'Tomcat-Jenkins', path: '', url: 'http://54.254.75.108:9090')], contextPath: 'skillrary01', war: '**/*.war'
