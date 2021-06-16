@@ -15,21 +15,22 @@ node{
 		junit '**/target/surefire-reports/*.xml'
 	}
 
-
-	stage('Jacoco Reports'){
-
-		jacoco deltaBranchCoverage: '10'
-	}
+	stage('jacoco reports'){
+          jacoco(
+                execPattern: '**/target/jacoco.exec',
+                classPattern: '**/coverage/**',
+                sourcePattern: '**/coverage/**',
+                inclusionPattern: '**/*.class'
+		)
+      }
 	
-	stage('SonarQube Analysis'){ 
-		def mvnHome = tool name: 'maven', type: 'maven'
-		withSonarQubeEnv('sonarqube'){
-    		// some block
-		sh "${mvnHome}/bin/mvn sonar:sonar -Dsonar.projectKey=welcometoskillrary -Dsonar.host.url=http://13.233.72.168:9000 -Dsonar.login=b993f2e2516629fdb0997287eb8e93f15e915a26"
-		}	
- 
-	}
-	 stage("Quality Gate"){
+	stage('SonarQube Analysis'){
+		withSonarQubeEnv(credentialsId: 'jenkins-integration', installationName: 'sonarqube') {
+			sh "${mvnHome}/bin/mvn sonar:sonar"
+		}
+	}	
+	
+	 stage('Quality Gate'){
          	 timeout(time: 1, unit: 'HOURS') {
               		def qg = waitForQualityGate()
               		if (qg.status != 'OK') {
@@ -53,6 +54,6 @@ node{
 	}
 	stage('Deploy to Tomcat Server'){
 
-		deploy adapters: [tomcat8(credentialsId: 'Tomcat-Jenkins', path: '', url: 'http://13.229.97.127:9090')], contextPath: 'skillrary01', war: '**/*.war'
+		deploy adapters: [tomcat8(credentialsId: 'Tomcat-Jenkins', path: '', url: 'http://54.254.75.108:9090')], contextPath: 'skillrary01', war: '**/*.war'
 	}		
 }
