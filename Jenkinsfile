@@ -26,21 +26,13 @@ node('master'){
                   	error "Pipeline aborted due to quality gate failure: ${qg.status}"
                 }
             }
-    	} 
+    	} */
 	
 	stage("Quality gate Analysis") {
+		no public field ‘webhookSecretId’ (or getter method) found in class org.sonarsource.scanner.jenkins.pipeline.WaitForQualityGateStep
                 waitForQualityGate abortPipeline: true
-	}*/
-	
-	stage("Quality Gate"){
-          timeout(time: 1, unit: 'HOURS') {
-              def qg = waitForQualityGate()
-              if (qg.status != 'OK') {
-                  error "Pipeline aborted due to quality gate failure: ${qg.status}"
-              }
-          }
 	}
-  	
+	
 	stage('Packaging the code'){
 		sh "/usr/share/apache-maven/bin/mvn package"
 	}	
