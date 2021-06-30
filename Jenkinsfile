@@ -19,14 +19,14 @@ node('master'){
 		}
 	}
 	
-        /*stage("Quality Gate"){
+        stage("Quality Gate"){
           	timeout(time: 1, unit: 'HOURS') {
               		def qg = waitForQualityGate()
               		if (qg.status != 'OK') {
                   	error "Pipeline aborted due to quality gate failure: ${qg.status}"
                 }
             }
-        }*/  
+         }  
 	
   	stage('Packaging the code'){
 		sh "/usr/share/apache-maven/bin/mvn package"
