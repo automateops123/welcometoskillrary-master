@@ -244,4 +244,11 @@
     <maven>3.0.3</maven>
   </prerequisites>
 	
+<distributionManagement>
+   <snapshotRepository>
+      <id>sample</id>
+      <url>http://18.141.200.17:8082/artifactory/jenkinspipelinejfrog/</url>
+   </snapshotRepository>
+</distributionManagement>
+	
 </project>
