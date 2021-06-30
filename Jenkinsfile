@@ -1,14 +1,14 @@
 node{
 
+	stage('SCM Checkout'){
+		git 'https://github.com/automateops123/welcometoskillrary-master.git'
+	}
 	stage('clean the workspace'){
 		def mvnHome = tool name: 'maven', type: 'maven'
 		sh "${mvnHome}/bin/mvn clean"	
 	}	
 	
-	stage('SCM Checkout'){
-		git 'https://github.com/automateops123/welcometoskillrary-master.git'
-	}
-	
+		
 	stage('Compile the code'){
 		def mvnHome = tool name: 'maven', type: 'maven'
 		sh "${mvnHome}/bin/mvn clean compile"
