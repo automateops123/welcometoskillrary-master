@@ -46,6 +46,6 @@ node('master'){
    	}
 	
 	stage('Jfrog Artifactory Backup'){
-		sh "/usr/share/apache-maven/bin/mvn deploy"
+		sh "/usr/share/apache-maven/bin/mvn clean deploy"
 	}
 }
