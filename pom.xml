@@ -233,6 +233,21 @@
     </dependencies>
   </dependencyManagement>
 
+<distributionManagement>
+
+  <repository>
+    <id>Pipeline-libs-release-local</id>
+    <url>http://18.141.200.17:8082/artifactory/Pipeline-libs-release-local/</url>
+  </repository>
+  
+  
+  <snapshotRepository>
+    <id>Pipeline-libs-release-local</id>
+    <url>http://18.141.200.17:8082/artifactory/Pipeline-libs-snapshot-local/</url>
+  </snapshotRepository>
+
+</distributionManagement>	
+	
   <scm>
     <connection>scm:git:git@github.com:skillrary/maven-helloworld.git</connection>
     <developerConnection>scm:git:git@github.com:skillrary/maven-helloworld.git</developerConnection>
@@ -243,13 +258,5 @@
   <prerequisites>
     <maven>3.0.3</maven>
   </prerequisites>
-	
-<distributionManagement>
-   <snapshotRepository>
-      <id>sample</id>
-      <name>jenkinspipelinejfrog</name>
-      <url>http://18.141.200.17:8082/artifactory/jenkinspipelinejfrog/</url>
-   </snapshotRepository>
-</distributionManagement>
-	
+		
 </project>
