@@ -39,7 +39,7 @@ node('master'){
                   error "Pipeline aborted due to quality gate failure: ${qg.status}"
               }
           }
-      
+	}
   	
 	stage('Packaging the code'){
 		sh "/usr/share/apache-maven/bin/mvn package"
