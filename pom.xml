@@ -247,6 +247,7 @@
 <distributionManagement>
    <snapshotRepository>
       <id>sample</id>
+      <name>jenkinspipelinejfrog</name>
       <url>http://18.141.200.17:8082/artifactory/jenkinspipelinejfrog/</url>
    </snapshotRepository>
 </distributionManagement>
