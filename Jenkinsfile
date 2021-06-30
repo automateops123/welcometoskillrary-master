@@ -70,3 +70,4 @@ node('master'){
         	slackSend channel: '#automateops123', color: 'Blue', message: 'Job is Successfully Deployed to QA server', teamDomain: 'automateopsworkspace', tokenCredentialId: 'slackintjenk'   
     }
 }
+}
