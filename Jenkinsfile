@@ -60,12 +60,23 @@ node{
 	
 	stage ('upload the artifactory'){
 		withCredentials([usernameColonPassword(credentialsId: 'jfrogskill', variable: 'jfrogskill')]) {
-    			def server = Artifactory.server "sample"
+    			/*def server = Artifactory.server "sample"
 			def rtMaven = Artifactory.newMavenBuild()
 			def buildInfo
        			rtMaven.tool = "maven"
-        		rtMaven.deployer releaseRepo:'jenkinspipelinejfrog', snapshotRepo:'jenkinspipelinejfrog', server: server
-			rtMaven.resolver releaseRepo:'jenkinspipelinejfrog', snapshotRepo:'jenkinspipelinejfrog', server: server
+        		rtMaven.deployer releaseRepo:'jenkinspipelinejfrog', snapshotRepo:'jenkinspipelinejfrog', server: sample
+			rtMaven.resolver releaseRepo:'jenkinspipelinejfrog', snapshotRepo:'jenkinspipelinejfrog', server: sample*/
+			rtUpload (
+    			serverId: 'sample',
+    				spec: '''{
+          			  	"files": [
+            					{
+              						"pattern": "jenkinspipelinejfrog",
+             						"target": "http://18.141.200.17:8082/artifactory/jenkinspipelinejfrog/"
+            					}
+        					 ]
+   					 }''',
+				)
 		}
 	}
 	
