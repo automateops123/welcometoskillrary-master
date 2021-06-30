@@ -28,10 +28,10 @@ node('master'){
             }
     	} */
 	
-	stage("Quality gate Analysis") {
-		no public field ‘webhookSecretId’ (or getter method) found in class org.sonarsource.scanner.jenkins.pipeline.WaitForQualityGateStep
+        stage("Quality gate") {
+            steps {
                 waitForQualityGate abortPipeline: true
-	}
+            }
 	
 	stage('Packaging the code'){
 		sh "/usr/share/apache-maven/bin/mvn package"
