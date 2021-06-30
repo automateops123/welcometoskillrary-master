@@ -29,9 +29,10 @@ node('master'){
     	} */
 	
         stage("Quality gate") {
-            	no public field ‘webhookSecretId’ (or getter method) found in class org.sonarsource.scanner.jenkins.pipeline.WaitForQualityGateStep
-                waitForQualityGate abortPipeline: true
-           
+		{no public field ‘webhookSecretId’ (or getter method) found in class org.sonarsource.scanner.jenkins.pipeline.WaitForQualityGateStep
+			}
+		waitForQualityGate abortPipeline: true
+	
 	}
 	
 	stage('Packaging the code'){
