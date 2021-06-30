@@ -21,14 +21,14 @@ node{
 		}
 	}
 	
-	//stage("Quality Gate"){
-          //	timeout(time: 1, unit: 'HOURS') {
-            //  		def qg = waitForQualityGate()
-              //		if (qg.status != 'OK') {
-                 // 	error "Pipeline aborted due to quality gate failure: ${qg.status}"
-              //}
-          //}
-     // }  
+	/*stage("Quality Gate"){
+          	timeout(time: 1, unit: 'HOURS') {
+              		def qg = waitForQualityGate()
+              		if (qg.status != 'OK') {
+                  	error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                }
+            }
+    	}*/  
 	
   	stage('Packaging the code'){
 		def mvnHome = tool name: 'maven', type: 'maven'
@@ -48,39 +48,12 @@ node{
 		)
    	 }
 	
-	// stage('Jfrog Artifactory Backup'){
-	
-	//	def server = Artifactory.server "sonarqube"
-	//	def rtMaven = Artifactory.newMavenBuild()
-	//	def buildInfo
-       	//	rtMaven.tool = "maven"
-        //	rtMaven.deployer releaseRepo:'skillrarywelcome-libs-release-local', snapshotRepo:'skillrarywelcome-libs-snapshot-local', server: server
-        //	rtMaven.resolver releaseRepo:'skillrarywelcome-libs-release-local', snapshotRepo:'skillrarywelcome-libs-snapshot-local', server: server
-	//}
-	
-	stage ('upload the artifactory'){
-		withCredentials([usernameColonPassword(credentialsId: 'jfrogskill', variable: 'jfrogskill')]) {
-    			/*def server = Artifactory.server "sample"
-			def rtMaven = Artifactory.newMavenBuild()
-			def buildInfo
-       			rtMaven.tool = "maven"
-        		rtMaven.deployer releaseRepo:'jenkinspipelinejfrog', snapshotRepo:'jenkinspipelinejfrog', server: sample
-			rtMaven.resolver releaseRepo:'jenkinspipelinejfrog', snapshotRepo:'jenkinspipelinejfrog', server: sample*/
-			rtUpload (
-    			serverId: 'sample',
-    				spec: '''{
-          			  	"files": [
-            					{
-              						"pattern": "jenkinspipelinejfrog",
-             						"target": "http://18.141.200.17:8082/artifactory/jenkinspipelinejfrog/"
-            					}
-        					 ]
-   					 }''',
-				)
-		}
+	stage('Jfrog Artifactory Backup'){
+		def mvnHome = tool name: 'maven', type: 'maven'
+		sh "${mvnHome}/bin/mvn clean deploy"
 	}
 	
-	  
+	
 	/*stage('Deploy approval'){
 		input "Deploy to prod?"
 	}*/
