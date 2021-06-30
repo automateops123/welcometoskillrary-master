@@ -244,13 +244,4 @@
     <maven>3.0.3</maven>
   </prerequisites>
 	
-<publisher>
-  <contextUrl>http://18.141.200.17:8082/artifactory/jenkinspipelinejfrog/</contextUrl>
-  <username>jfrogskill</username>
-  <password>May@2021</password>
-  <repoKey>jenkinspipelinejfrog</repoKey>
-  <snapshotRepoKey>jenkinspipelinejfrog</snapshotRepoKey>
-</publisher>	
-	
-
 </project>
