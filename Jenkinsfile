@@ -59,13 +59,13 @@ node{
 	//}
 	
 	stage ('upload the artifactory'){
-		withCredentials([usernameColonPassword(credentialsId: 'JfrogDeployPipeline', variable: 'jfrogskill')]) {
-    			def server = Artifactory.server "jfrog"
+		withCredentials([usernameColonPassword(credentialsId: 'jfrogskill', variable: 'jfrogskill')]) {
+    			def server = Artifactory.server "sample"
 			def rtMaven = Artifactory.newMavenBuild()
 			def buildInfo
        			rtMaven.tool = "maven"
-        		rtMaven.deployer releaseRepo:'pipeline-upload-job-generic-local', snapshotRepo:'pipeline-upload-job-generic-local', server: server
-			rtMaven.resolver releaseRepo:'pipeline-upload-job-generic-local', snapshotRepo:'pipeline-upload-job-generic-local', server: server
+        		rtMaven.deployer releaseRepo:'jenkinspipelinejfrog', snapshotRepo:'jenkinspipelinejfrog', server: server
+			rtMaven.resolver releaseRepo:'jenkinspipelinejfrog', snapshotRepo:'jenkinspipelinejfrog', server: server
 		}
 	}
 	
